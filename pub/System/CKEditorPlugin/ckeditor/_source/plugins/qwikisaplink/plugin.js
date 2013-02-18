@@ -1,8 +1,5 @@
 ﻿/*
 Copyright (C) 2012, Modell Aachen GmbH
-Based on the original CKEditor plugin "smiley"; original credits follow
-
-Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
