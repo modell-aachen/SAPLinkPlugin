@@ -23,7 +23,7 @@ use Foswiki::Plugins ();    # For the API version
 
 our $VERSION = '$Rev$';
 
-our $RELEASE = '0.0.2';
+our $RELEASE = '0.0.3';
 
 our $SHORTDESCRIPTION = 'Create links to SAP-transactions.';
 
