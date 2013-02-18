@@ -12,7 +12,7 @@ sub new {
 }
 
 # Will first symlink _source files to plugins directory and do a standard build
-sub target_build {
+sub target_compress {
     my $this = shift;
 
     # Symlink the source to ..._src.js files and return to current dir
@@ -24,8 +24,8 @@ sub target_build {
     _linkFiles($dir);
     chdir $saveddir;
 
-    # do a standard build
-    $this->SUPER::target_build(@ARGV);
+    # do a standard compress
+    $this->SUPER::target_compress(@ARGV);
 }
 
 # This function will recursively call itself and link files from _source to
