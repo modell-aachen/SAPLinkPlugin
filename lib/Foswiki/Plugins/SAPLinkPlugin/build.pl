@@ -35,7 +35,7 @@ sub _linkFiles {
     my ( $dir ) = @_;
     print "processing dir $dir\n";
     chdir $dir || die "unable to enter $dir";
-    foreach my $file ( <'*'> ) {
+    foreach my $file ( <*> ) {
         my $localfile = "$dir/$file";
         my $other = $localfile;
         $other =~ s#/_source##;
