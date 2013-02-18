@@ -176,11 +176,11 @@ sub _SAPLINK {
     return '' unless $transaction;
 
     my $image = '<img src="%PUBURLPATH%/%SYSTEMWEB%/SAPLinkPlugin/sap-sprite_sap_20.png" title="%MAKETEXT{"Transaction: [_1]" args="'.$transaction.'"}%" />';
-    if($Foswiki::cfg{Plugins}{SAPLinkPlugin}{Method} eq 'web') {
-        my $server = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{server} || '';
-        my $path = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{path} || ''; # XXX error when empty
+    if($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'web') {
+        my $server = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkerver} || '';
+        my $path = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkPath} || ''; # XXX error when empty
         return "[[http://$server/$path?~TRANSACTION=$transaction][$image]]";
-    } elsif ($Foswiki::cfg{Plugins}{SAPLinkPlugin}{Method} eq 'sap-shortcut') {
+    } elsif ($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'sap-shortcut') {
         return "[[%SCRIPTURL{\"rest\"}%/SAPLinkPlugin/getlink?transaction=$transaction][$image]]";
     }
     return '';
@@ -860,14 +860,14 @@ Foswiki:Support.Faq1
 sub restGetLink {
     my ( $session, $subject, $verb, $response ) = @_;
 
-    my $wd = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{workingDir} || 'C:\Documents and Settings\%USERNAME%\My Documents\SAP';
+    my $wd = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkWorkingDir} || 'C:\Documents and Settings\%USERNAME%\My Documents\SAP';
     $wd = Foswiki::Func::expandCommonVariables($wd);
-    my $username = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{UserName} || '%WIKINAME%';
+    my $username = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserName} || '%WIKINAME%';
     $username = Foswiki::Func::expandCommonVariables($username);
-    my $sysname = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{systemName} || ''; # XXX Error when empty
-    my $sysdesc = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{systemDesc} || ''; # XXX Error when empty
-    my $lang = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{Language} || 'de';
-    my $client = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{UserClient};
+    my $sysname = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemName} || ''; # XXX Error when empty
+    my $sysdesc = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemDesc} || ''; # XXX Error when empty
+    my $lang = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkLanguage} || 'de';
+    my $client = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserClient};
     if($client) {
         $client = "\nClient=$client";
     } else {

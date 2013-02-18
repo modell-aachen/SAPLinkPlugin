@@ -26,12 +26,12 @@ Ebenso ultrakurz:
          * Wenn der CKEditor ebenfall mit gepseudoinstallt werden soll, m&uuml;ssen einige Ordner im =pub= Verzeichnis (=/pub/%SYSTEMWEB%/CKEditorPlugin/ckeditor/_source/plugins= und ckeditor/plugins=) vorher manuell angelegt werden.
          * Das Plugin muss entweder mit =build.pl= gebaut werden, oder in den =WebPreferences= / =SitePreferences= die Einstellung =CKEditorPlugin_DEBUG = 1= gesetzt werden.
    * In =Configure= einstellen:
-      * ={Plugins}{SAPLinkPlugin}{Method} = sap-shortcut= (Die andere Option ist f&uuml;r Netweaver und komplett ungetestet)
-      * ={Plugins}{SAPLinkPlugin}{systemName}=
-      * ={Plugins}{SAPLinkPlugin}{systemDesc}= (_glaube ich_ optional)
-      * ={Plugins}{SAPLinkPlugin}{workingDir}= (_glaube ich_ *nicht optional*, wird als WikiText expandiert, eventuell einen SAP-Link auf dem Desktop anlegen und schauen wie das aussehen muss)
-      * ={Plugins}{SAPLinkPlugin}{UserName}= (wird als WikiText expandiert)
-      * ={Plugins}{SAPLinkPlugin}{systemClient}=
+      * ={Plugins}{SAPLinkPlugin}{SAPLinkMethod} = sap-shortcut= (Die andere Option ist f&uuml;r Netweaver und komplett ungetestet)
+      * ={Plugins}{SAPLinkPlugin}{SAPLinkSystemName}=
+      * ={Plugins}{SAPLinkPlugin}{SAPLinkSystemDesc}= (_glaube ich_ optional)
+      * ={Plugins}{SAPLinkPlugin}{SAPLinkWorkingDir}= (_glaube ich_ *nicht optional*, wird als WikiText expandiert, eventuell einen SAP-Link auf dem Desktop anlegen und schauen wie das aussehen muss)
+      * ={Plugins}{SAPLinkPlugin}{SAPLinkUserName}= (wird als WikiText expandiert)
+      * ={Plugins}{SAPLinkPlugin}{SAPLinkSystemClient}=
 
    * Wie in [[%SYSTEMWEB%.CKEditorPlugin]] beschrieben ein =CKEPLUGIN_INIT_TOPIC= anlegen und dort bei =extraPlugins= den Wert =qwikisaplink= hinzuf&uuml;gen und in =toolbar_Basic= zu den =items= von ='qwiki'= den Wert ='QWikiSAPLink'= in die Liste mit aufnehmen (siehe Beispiel unten).
 
