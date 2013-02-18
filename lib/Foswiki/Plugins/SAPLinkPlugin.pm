@@ -875,7 +875,6 @@ sub restGetLink {
     }
 
     my $query = $session->{request};
-    use Data::Dumper;Foswiki::Func::writeWarning(Dumper($query->{param}));
     my $transaction = $query->{param}->{transaction}[0] || die; # XXX
     my $title = $query->{param}->{title};
     $title = @$title[0] if $title;
