@@ -33,8 +33,41 @@ Ebenso ultrakurz:
       * ={Plugins}{SAPLinkPlugin}{UserName}= (wird als WikiText expandiert)
       * ={Plugins}{SAPLinkPlugin}{systemClient}=
 
-   * Wie in [[%SYSTEMWEB%.CKEditorPlugin]] beschrieben ein =CKEPLUGIN_INIT_TOPIC= anlegen und dort bei =extraPlugins= den Wert =qwikisaplink= hinzuf&uuml;gen.
+   * Wie in [[%SYSTEMWEB%.CKEditorPlugin]] beschrieben ein =CKEPLUGIN_INIT_TOPIC= anlegen und dort bei =extraPlugins= den Wert =qwikisaplink= hinzuf&uuml;gen und in =toolbar_Basic= zu den =items= von ='qwiki'= den Wert ='QWikiSAPLink'= in die Liste mit aufnehmen (siehe Beispiel unten).
 
+%TWISTY{showimgleft="%ICONURLPATH{"toggleopen"}%" hideimgleft="%ICONURLPATH{"toggleclose"}%" link="Beispiel &Auml;nderungen an CKEPLUGIN_INIT" start="hide"}%<div style="border-left: 5px solid green; padding-left: 15px; margin-left: 5px;">
+Aus <pre>
+%%NOP%STARTSECTION{"CKEPLUGIN_INIT"}%
+extraPlugins : "qwikistyles,qwikiprovisarea,qwiki,qwikiajax,qwikifilebrowser,qwikiimage,qwikiautosuggest,qwikilink,qwikisave,qwikitoolbar,qwikiwikitext,qwikitable,tableresize,ajax,xml",
+removePlugins : "toolbar,save,link,image,table,forms",
+enterMode : "1",
+menu_groups : "clipboard,form,tablecell,tablecellproperties,tablerow,tablecolumn,table,anchor,link,image,flash,checkbox,radio,textfield,hiddenfield,imagebutton,button,select,textarea,provis,code,removeformat",
+toolbar: "Basic",
+toolbar_Basic : [
+     { name: 'save',        items : [ 'Save', 'Cancel' ] },
+     { name: 'wikitext',    items : [ 'WikiText' ] },
+     { name: 'undoredo',    items : [ 'Undo','Redo' ] },
+     { name: 'links',       items : [ 'Link','Unlink' ] },
+     { name: 'qwiki',       items : [ 'ProVis','Document','QWikiImage','Table' ] },
+...
+</pre>
+w&uuml;rde <pre>
+%%NOP%STARTSECTION{"CKEPLUGIN_INIT"}%
+extraPlugins : "qwikistyles,qwikiprovisarea,qwiki,<span style="background-color: yellow">qwikisaplink</span>,qwikiajax,qwikifilebrowser,qwikiimage,qwikiautosuggest,qwikilink,qwikisave,qwikitoolbar,qwikiwikitext,qwikitable,tableresize,ajax,xml",
+removePlugins : "toolbar,save,link,image,table,forms",
+enterMode : "1",
+menu_groups : "clipboard,form,tablecell,tablecellproperties,tablerow,tablecolumn,table,anchor,link,image,flash,checkbox,radio,textfield,hiddenfield,imagebutton,button,select,textarea,provis,code,removeformat",
+toolbar: "Basic",
+toolbar_Basic : [
+     { name: 'save',        items : [ 'Save', 'Cancel' ] },
+     { name: 'wikitext',    items : [ 'WikiText' ] },
+     { name: 'undoredo',    items : [ 'Undo','Redo' ] },
+     { name: 'links',       items : [ 'Link','Unlink' ] },
+     { name: 'qwiki',       items : [ 'ProVis','Document','QWikiImage','Table'<span style="background-color: yellow">,'QWikiSAPLink'</span> ] },
+...
+</pre>
+</div>
+%ENDTWISTY%
 
 %$INSTALL_INSTRUCTIONS%
 
