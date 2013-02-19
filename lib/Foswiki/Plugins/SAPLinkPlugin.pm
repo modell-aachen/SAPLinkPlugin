@@ -59,7 +59,7 @@ sub _SAPLINK {
         my $path = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkPath} || ''; # XXX error when empty
         return "[[http://$server/$path?~TRANSACTION=$transaction][$image]]";
     } elsif ($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'sap-shortcut') {
-        return "[[%SCRIPTURL{\"rest\"}%/SAPLinkPlugin/getlink?transaction=$transaction][$image]]";
+        return "[[%SCRIPTURL{\"rest\"}%/SAPLinkPlugin/getlink?sweb=$web;transaction=$transaction][$image]]";
     }
     return '';
 }
@@ -67,21 +67,40 @@ sub _SAPLINK {
 sub restGetLink {
     my ( $session, $subject, $verb, $response ) = @_;
 
-    my $wd = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkWorkingDir} || 'C:\Documents and Settings\%USERNAME%\My Documents\SAP';
+    my $query = $session->{request};
+
+    my $web; # Web where to get the override preferences from
+    if ( $query->{param}->{sweb} ) {
+        $web = $query->{param}->{sweb}[0];
+    } else {
+        $web = $Foswiki::cfg{UsersWebName};
+    }
+
+    my $wd = Foswiki::Func::getPreferencesValue( 'SAPLinkWorkingDir', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkWorkingDir}
+        || 'C:\Documents and Settings\%USERNAME%\My Documents\SAP';
     $wd = Foswiki::Func::expandCommonVariables($wd);
-    my $username = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserName} || '%WIKINAME%';
+    my $username = Foswiki::Func::getPreferencesValue( 'SAPLinkUserName', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserName}
+        || '%WIKINAME%';
     $username = Foswiki::Func::expandCommonVariables($username);
-    my $sysname = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemName} || ''; # XXX Error when empty
-    my $sysdesc = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemDesc} || ''; # XXX Error when empty
-    my $lang = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkLanguage} || 'de';
-    my $client = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserClient};
+    my $sysname = Foswiki::Func::getPreferencesValue( 'SAPLinkSystemName', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemName}
+        || ''; # XXX Error when empty
+    my $sysdesc = Foswiki::Func::getPreferencesValue( 'SAPLinkSystemDesc', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemDesc}
+        || ''; # XXX Error when empty
+    my $lang = Foswiki::Func::getPreferencesValue( 'SAPLinkLanguage', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkLanguage}
+        || 'de';
+    my $client = Foswiki::Func::getPreferencesValue( 'SAPLinkUserClient', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserClient};
     if($client) {
         $client = "\nClient=$client";
     } else {
         $client = '';
     }
 
-    my $query = $session->{request};
     my $transaction = $query->{param}->{transaction}[0] || die; # XXX
     my $title = $query->{param}->{title};
     $title = @$title[0] if $title;
