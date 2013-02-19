@@ -76,59 +76,67 @@ sub restGetLink {
         $web = $Foswiki::cfg{UsersWebName};
     }
 
-    my $wd = Foswiki::Func::getPreferencesValue( 'SAPLinkWorkingDir', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkWorkingDir}
-        || 'C:\Documents and Settings\%USERNAME%\My Documents\SAP';
-    $wd = Foswiki::Func::expandCommonVariables($wd);
-    my $username = Foswiki::Func::getPreferencesValue( 'SAPLinkUserName', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserName}
-        || '%WIKINAME%';
-    $username = Foswiki::Func::expandCommonVariables($username);
-    my $sysname = Foswiki::Func::getPreferencesValue( 'SAPLinkSystemName', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemName}
-        || ''; # XXX Error when empty
-    my $sysdesc = Foswiki::Func::getPreferencesValue( 'SAPLinkSystemDesc', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemDesc}
-        || ''; # XXX Error when empty
-    my $lang = Foswiki::Func::getPreferencesValue( 'SAPLinkLanguage', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkLanguage}
-        || 'de';
-    my $client = Foswiki::Func::getPreferencesValue( 'SAPLinkUserClient', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserClient};
-    if($client) {
-        $client = "\nClient=$client";
-    } else {
-        $client = '';
-    }
+    my $system = ''; # Preferences for [System] will go here
+    my $user = ''; # Preferences for [User] will go here
+    my $config = ''; # Preferences for [Configuration] will go here
+    my $options = ''; # Preferences for [Options] will go here
+    my $function = ''; # Preferences for [Function] will go here
 
-    my $transaction = $query->{param}->{transaction}[0] || die; # XXX
-    my $title = $query->{param}->{title};
-    $title = @$title[0] if $title;
-    $title = 'SAP-Link' unless $title;
-    my $reuse = $query->{param}->{reuse};
-    if ($reuse) {
-        $reuse = @$reuse[0];
+    my $value;
+
+    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkWorkingDir', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkWorkingDir};
+    $value = Foswiki::Func::expandCommonVariables($value) if $value;
+    $config .= "\nWorkDir=$value" if $value;
+
+    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkUserName', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserName};
+    $value = Foswiki::Func::expandCommonVariables($value) if $value;
+    $user .= "\nName=$value" if $value;
+
+    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkSystemName', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemName};
+    $system .= "\nName=$value" if $value;
+
+    my $value = Foswiki::Func::getPreferencesValue( 'SAPLinkSystemDesc', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemDesc};
+    $system .= "\nDescription=$value" if $value;
+
+    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkLanguage', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkLanguage};
+    $user .= "\nLanguage=$value" if $value;
+
+    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkUserClient', $web )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserClient};
+    $system .= "\nClient=$value" if $value;
+
+    $value = $query->{param}->{transaction}[0] || die; # XXX
+    $function .= "\nCommand=$value" if $value;
+
+    $value = $query->{param}->{title};
+    $value = @$value[0] if $value;
+    $value = 'SAP-Link' unless $value;
+    $function .= "\nTitle=$value";
+
+    $value = $query->{param}->{reuse};
+    if ($value) {
+        $value = @$value[0];
     } else {
-        $reuse = '1';
+        $value = '1';
     }
+    $options .= " \nReuse=$value";
 
     $response->header( -'Content-Type' => 'application/x-sapshortcut' );
 
-    return <<SHORTCUT;
-[System]
-Name=$sysname
-Description=$sysdesc$client
-[User]
-Name=$username
-Language=$lang
-[Function]
-Title=$title
-Command=$transaction
-[Configuration]
-WorkDir=$wd
-[Options]
-Reuse=$reuse
-SHORTCUT
+    my $shortcut = '';
+
+    $shortcut .= "[System]$system\n" if $system;
+    $shortcut .= "[User]$user\n" if $user;
+    $shortcut .= "[Function]$function\n" if $function;
+    $shortcut .= "[Configuration]$config\n" if $config;
+    $shortcut .= "[Options]$options\n" if $options;
+
+    return $shortcut;
 }
 
 1;
