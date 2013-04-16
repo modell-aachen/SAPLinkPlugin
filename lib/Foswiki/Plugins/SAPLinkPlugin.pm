@@ -55,7 +55,7 @@ sub _SAPLINK {
 
     my $image = '<img src="%PUBURLPATH%/%SYSTEMWEB%/SAPLinkPlugin/sap-sprite_sap_20.png" title="%MAKETEXT{"Transaction: [_1]" args="'.$transaction.'"}%" />';
     if($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'web') {
-        my $server = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkerver} || '';
+        my $server = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkServer} || '';
         my $path = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkPath} || ''; # XXX error when empty
         return "[[http://$server/$path?~TRANSACTION=$transaction][$image]]";
     } elsif ($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'sap-shortcut') {
