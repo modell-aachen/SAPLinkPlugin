@@ -59,7 +59,7 @@ sub _SAPLINK {
         my $path = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkPath} || ''; # XXX error when empty
         return "[[http://$server/$path?~TRANSACTION=$transaction][$image]]";
     } elsif ($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'sap-shortcut') {
-        return "[[%SCRIPTURL{\"rest\"}%/SAPLinkPlugin/getlink?sweb=$web;transaction=$transaction][$image]]";
+        return "[[%SCRIPTURL{\"rest\"}%/SAPLinkPlugin/getlink?webtopic=$web.$topic;transaction=$transaction][$image]]";
     }
     return '';
 }
@@ -68,13 +68,7 @@ sub restGetLink {
     my ( $session, $subject, $verb, $response ) = @_;
 
     my $query = $session->{request};
-
-    my $web; # Web where to get the override preferences from
-    if ( $query->{param}->{sweb} ) {
-        $web = $query->{param}->{sweb}[0];
-    } else {
-        $web = $Foswiki::cfg{UsersWebName};
-    }
+    my $param = $query->{param};
 
     my $system = ''; # Preferences for [System] will go here
     my $user = ''; # Preferences for [User] will go here
@@ -82,33 +76,39 @@ sub restGetLink {
     my $options = ''; # Preferences for [Options] will go here
     my $function = ''; # Preferences for [Function] will go here
 
+    my $webtopic = $param->{webtopic};
+    my $pushed;
+    if ($webtopic) {
+        my ($nweb, $ntopic) = Foswiki::Func::normalizeWebTopicName( '', @$webtopic[0] );
+        if (Foswiki::Func::topicExists( $nweb, $ntopic ) ) {
+           $pushed = 1;
+           Foswiki::Func::pushTopicContext( $nweb, $ntopic );
+       }
+    }
+
     my $value;
 
-    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkWorkingDir', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkWorkingDir};
+    $value = _getConfig( 'SAPLinkWorkingDir', $param );
     $value = Foswiki::Func::expandCommonVariables($value) if $value;
     $config .= "\nWorkDir=$value" if $value;
 
-    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkUserName', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserName};
+    $value = _getConfig( 'SAPLinkUserName', $param );
     $value = Foswiki::Func::expandCommonVariables($value) if $value;
     $user .= "\nName=$value" if $value;
 
-    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkSystemName', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemName};
+    $value = _getConfig( 'SAPLinkSystemName', $param );
     $system .= "\nName=$value" if $value;
 
-    my $value = Foswiki::Func::getPreferencesValue( 'SAPLinkSystemDesc', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkSystemDesc};
+    $value = _getConfig( 'SAPLinkSystemDesc', $param );
     $system .= "\nDescription=$value" if $value;
 
-    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkLanguage', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkLanguage};
+    $value = _getConfig( 'SAPLinkLanguage', $param );
     $user .= "\nLanguage=$value" if $value;
 
-    $value = Foswiki::Func::getPreferencesValue( 'SAPLinkUserClient', $web )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserClient};
+    $value = _getConfig( 'SAPLinkUserClient', $param );
     $system .= "\nClient=$value" if $value;
+
+    Foswiki::Func::popTopicContext() if $pushed;
 
     $value = $query->{param}->{transaction}[0] || die; # XXX
     $function .= "\nCommand=$value" if $value;
@@ -137,6 +137,13 @@ sub restGetLink {
     $shortcut .= "[Options]$options\n" if $options;
 
     return $shortcut;
+}
+
+sub _getConfig {
+    my ($config, $param) = @_;
+    return $param->{$config}[0] if $param->{$config};
+    return Foswiki::Func::getPreferencesValue( $config )
+        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{$config};
 }
 
 1;
