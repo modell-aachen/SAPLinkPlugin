@@ -55,7 +55,7 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 	{
 		var dataProcessor = editor.dataProcessor,
 			dataFilter = dataProcessor && dataProcessor.dataFilter;
-		var sapRegex = new RegExp("^%SAPLINK{\".*\"}%$");
+		var sapRegex = new RegExp("^%SAPLINK{[^}]*}%$");
 
 		if ( dataFilter )
 		{
