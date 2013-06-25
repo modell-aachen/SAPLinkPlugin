@@ -31,7 +31,7 @@ $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserName} = '%WIKINAME%';
 
 # **STRING**
 # Client-Id f&uuml;r sap-shortcuts.
-$Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserClient} = '%WIKINAME%';
+$Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserClient} = '001';
 
 # **STRING**
 # Standard-Sprache f&uuml;r sap-shortcuts.
