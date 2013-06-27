@@ -13,7 +13,7 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 		var data = {};
 		this.commitContent( data );
 
-		var newElement = CKEDITOR.dom.element.createFromHtml( '<span class="WYSIWYG_PROTECTED">%SAPLINK{"' + data.transaction + '"}%</span>' );
+		var newElement = CKEDITOR.dom.element.createFromHtml( '<span class="SAPLink TMLhtml">SAP Transaction: ' + data.transaction + ' </span>' );
 		newElement = editor.createFakeElement( newElement, 'cke_saplink', 'saplink', false );
 		if(element) {
 			newElement.replace( element );
@@ -26,13 +26,18 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 	var onShow = function() {
 		var data = {};
 		element = editor.getSelection().getSelectedElement();
-
 		data.transaction = "";
-		if ( element && element.getAttribute( 'data-cke-real-element-type' ) === 'saplink' ) {
-			var getReal = editor.restoreRealElement(element);
-			var regex = new RegExp("%SAPLINK{\"(.*)\"}%");
-			var match = regex.exec( getReal.getHtml() );
-			if(match.length > 1) data.transaction = match[1];
+		var getReal = editor.restoreRealElement(element);
+		var regex = new RegExp("SAP Transaction: ([a-zA-Z0-9]+) ");
+		var html = getReal.getHtml();
+		var match = regex.exec( html );
+		if(!(match && match.length > 1)) {
+			// old format
+			var regex = new RegExp("%SAPLINK{\"([a-zA-Z0-9]+)\"}%");
+			match = regex.exec( html );
+		}
+		if(match && match.length > 1) {
+			data.transaction = match[1];
 		}
 
 		this.setupContent( data );

@@ -47,7 +47,7 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 		// Modac : contextmenu
 		editor.contextMenu.addListener( function( element, selection )
 		{
-			if ( element && element.is( 'img' ) && element.getAttribute( 'data-cke-real-element-type' ) == 'saplink' )
+			if ( element && element.is( 'img' ) && element.hasClass( 'cke_saplink' ) )
 				return { qwikisaplink : CKEDITOR.TRISTATE_OFF };
 		});
 	},
@@ -56,6 +56,8 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 		var dataProcessor = editor.dataProcessor,
 			dataFilter = dataProcessor && dataProcessor.dataFilter;
 		var sapRegex = new RegExp("^%SAPLINK{[^}]*}%$");
+		var saplinkRegex = new RegExp("SAPLink");
+		var tmlRegex = new RegExp("TMLhtml");
 
 		if ( dataFilter )
 		{
@@ -79,6 +81,12 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 								{
 									return editor.createFakeParserElement( element, 'cke_saplink', 'saplink');
 								}
+							} else
+							if (saplinkRegex.test(classes) && tmlRegex.test(classes))
+							{
+								if (element.children.length != 1) return null;
+								var fake = editor.createFakeParserElement( element, 'cke_saplink', 'saplink' );
+								return fake;
 							}
 							return null;
 						}
@@ -94,7 +102,7 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 
 			if ( !element.isReadOnly() )
 			{
-				if ( element && element.is( 'img' ) && element.getAttribute( 'data-cke-real-element-type' ) == 'saplink' )
+				if (  element && element.is( 'img' ) && element.hasClass( 'cke_saplink') )
 				{
 					evt.data.dialog = 'qwikisaplink';
 					editor.getSelection().selectElement( element );

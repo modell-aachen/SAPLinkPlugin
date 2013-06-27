@@ -3,6 +3,10 @@ data/System/SAPLinkPlugin.txt 0644 Documentation
 lib/Foswiki/Plugins/SAPLinkPlugin.pm 0644 Perl module
 lib/Foswiki/Plugins/SAPLinkPlugin/Config.spec 0644
 pub/System/SAPLinkPlugin/sap-sprite_sap_20.png 0644
+pub/System/SAPLinkPlugin/saplink.css 0644
+pub/System/SAPLinkPlugin/saplink.css.gz 0644
+pub/System/SAPLinkPlugin/saplink.js 0644
+pub/System/SAPLinkPlugin/saplink.js.gz 0644
 locale/SAPLinkPlugin/de.po 0644 translation de
 pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/plugin.js 0644
 pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/plugin.js.gz 0644

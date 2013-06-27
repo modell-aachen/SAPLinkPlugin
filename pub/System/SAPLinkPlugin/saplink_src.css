@@ -1,0 +1,10 @@
+div.SAPLinkSymbol {
+    min-width: 42px;
+    min-height: 20px;
+    padding-left: 42px;
+    background-image: url(sap-sprite_sap_20.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    display: inline;
+    cursor: pointer;
+}

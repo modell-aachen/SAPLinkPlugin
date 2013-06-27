@@ -43,25 +43,35 @@ sub initPlugin {
 
     Foswiki::Func::registerRESTHandler( 'getlink', \&restGetLink );
 
+    my $options = 'txt_tra:"%MAKETEXT{"Transaction: "}%"';
+    if($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'web') {
+        my $server = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkServer} || return 0;
+        my $path = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkPath} || return 0;
+        $options .= ",type:'web',nwurl:'http://$server/$path'";
+        #return "[[http://$server/$path?~TRANSACTION=$transaction][$image]]";
+    } elsif ($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'sap-shortcut') {
+        $options .= ",type:'sc'";
+    } else {
+        $options .= ",type:'unknown'";
+    }
+Foswiki::Func::addToZone('script', 'SAPLinkPlugin', <<SCRIPT, 'JQUERYPLUGIN::FOSWIKI');
+<style type="text/css">\@import url('%PUBURLPATH%/%SYSTEMWEB%/SAPLinkPlugin/saplink.css');</style>
+<script type="text/javascript" src="%PUBURLPATH%/%SYSTEMWEB%/SAPLinkPlugin/saplink.js"></script>
+<script type="text/javascript">document.SAPLink={$options}</script>
+SCRIPT
+
     # Plugin correctly initialized
     return 1;
 }
 
+# for backwards compatibility
 sub _SAPLINK {
     my($session, $params, $topic, $web, $topicObject) = @_;
 
     my $transaction = $params->{_DEFAULT};
     return '' unless $transaction;
 
-    my $image = '<img src="%PUBURLPATH%/%SYSTEMWEB%/SAPLinkPlugin/sap-sprite_sap_20.png" title="%MAKETEXT{"Transaction: [_1]" args="'.$transaction.'"}%" />';
-    if($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'web') {
-        my $server = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkServer} || '';
-        my $path = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkPath} || ''; # XXX error when empty
-        return "[[http://$server/$path?~TRANSACTION=$transaction][$image]]";
-    } elsif ($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'sap-shortcut') {
-        return "[[%SCRIPTURL{\"rest\"}%/SAPLinkPlugin/getlink?webtopic=$web.$topic;transaction=$transaction][$image]]";
-    }
-    return '';
+    return "<span class='SAPLink'>Transaction: $transaction</span>";
 }
 
 sub restGetLink {
