@@ -43,6 +43,14 @@ sub initPlugin {
 
     Foswiki::Func::registerRESTHandler( 'getlink', \&restGetLink );
 
+    # Copy/Paste/Modify from MetaCommentPlugin
+    if ($Foswiki::cfg{Plugins}{SolrPlugin}{Enabled}) {
+      require Foswiki::Plugins::SolrPlugin;
+      Foswiki::Plugins::SolrPlugin::registerIndexTopicHandler(
+        \&indexTopicHandler
+      );
+    }
+
     my $options = 'txt_tra:"%MAKETEXT{"Transaction: "}%"';
     if($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'web') {
         my $server = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkServer} || return 0;
@@ -154,6 +162,14 @@ sub _getConfig {
     return $param->{$config}[0] if $param->{$config};
     return Foswiki::Func::getPreferencesValue( $config )
         || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{$config};
+}
+
+sub indexTopicHandler {
+    my ($indexer, $doc, $web, $topic, $meta, $text) = @_;
+
+    while ( $text =~ m#SAP Transaction: ([a-zA-Z0-9]+) #g ) {
+        $doc->add_fields( sap_transaction_lst => $1 );
+    }
 }
 
 1;
