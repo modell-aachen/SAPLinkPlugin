@@ -64,24 +64,23 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 					elements :
 					{
 						// Modac : Hier werden alle Spans gefiltert und nach SAPLINKS durchsucht
-					    span : function( element )
+						'span' : function( element )
 						{
 							// Modac : Due to lovely Internet Explorer
-							var attr = '';
-							attr = element.attributes["class"];
+							var classes = element.attributes["class"];
 
 							// Modac : Alle spans mit WYSIWYG_PROTECED Attribut werden hier ausgelesen
-							if (attr == "WYSIWYG_PROTECTED")
+							if (classes == "WYSIWYG_PROTECTED")
 							{
-								if(element.children.length != 1) return element;
+								if(element.children.length != 1) return null;
 								var value = element.children[ 0 ].value;
 								value = value.replace(/\n/, '');
 								if ( sapRegex.test(value) )
 								{
 									return editor.createFakeParserElement( element, 'cke_saplink', 'saplink');
 								}
-								return element;
 							}
+							return null;
 						}
 					}
 				},
