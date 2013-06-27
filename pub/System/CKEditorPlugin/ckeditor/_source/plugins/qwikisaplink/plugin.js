@@ -32,14 +32,14 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 
 		if ( editor.addMenuItems )
 		{
-			editor.addMenuGroup( 'saplink' );
+			editor.addMenuGroup( 'group_saplink' );
 			editor.addMenuItem(
 					'qwikisaplink',
 					{
 						label : editor.lang.qwikisaplink.contextmenu,
 						icon : this.path + "images/sap-sprite_sap_klein.png",
 						command : 'qwikisaplink',
-						group : 'saplink',
+						group : 'group_saplink',
 						order : 1
 					}
 			);
