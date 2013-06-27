@@ -19,7 +19,7 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 			});
 		CKEDITOR.dialog.add( 'qwikisaplink', this.path + 'dialogs/qwikisaplink.js' );
 		editor.addCss(
-			'img.saplink' +
+			'img.cke_saplink' +
 			'{' +
 				'background-image: url(' + CKEDITOR.getUrl( this.path + 'images/sap-sprite_sap_20.png' ) + ');' +
 				'background-position: center center;' +
@@ -78,7 +78,7 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 								value = value.replace(/\n/, '');
 								if ( sapRegex.test(value) )
 								{
-									return editor.createFakeParserElement( element, 'saplink', 'saplink');
+									return editor.createFakeParserElement( element, 'cke_saplink', 'saplink');
 								}
 								return element;
 							}

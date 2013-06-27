@@ -14,7 +14,7 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 		this.commitContent( data );
 
 		var newElement = CKEDITOR.dom.element.createFromHtml( '<span class="WYSIWYG_PROTECTED">%SAPLINK{"' + data.transaction + '"}%</span>' );
-		newElement = editor.createFakeElement( newElement, 'saplink', 'saplink', false );
+		newElement = editor.createFakeElement( newElement, 'cke_saplink', 'saplink', false );
 		if(element) {
 			newElement.replace( element );
 		} else {
