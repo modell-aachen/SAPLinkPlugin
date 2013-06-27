@@ -23,17 +23,18 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 		return true;
 	}
 
+	var allowedChars = '[a-zA-Z0-9_]';
 	var onShow = function() {
 		var data = {};
 		element = editor.getSelection().getSelectedElement();
 		data.transaction = "";
 		var getReal = editor.restoreRealElement(element);
-		var regex = new RegExp("SAP Transaction: ([a-zA-Z0-9]+) ");
+		var regex = new RegExp("SAP Transaction: ("+allowedChars+"+) ");
 		var html = getReal.getHtml();
 		var match = regex.exec( html );
 		if(!(match && match.length > 1)) {
 			// old format
-			var regex = new RegExp("%SAPLINK{\"([a-zA-Z0-9]+)\"}%");
+			var regex = new RegExp("%SAPLINK{\"("+allowedChars+"+)\"}%");
 			match = regex.exec( html );
 		}
 		if(match && match.length > 1) {
@@ -53,17 +54,29 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 				label : lang.shortcut,
 				elements: [
 					{
-							type : 'text',
-							id : 'transaction',
-							label : lang.transaction,
-							setup : function(data) {
-								this.setValue(data.transaction);
-							},
-							commit : function( data ) {
-								data.transaction = this.getValue();
-							},
-							validate : CKEDITOR.dialog.validate.notEmpty( lang.emptyTransaction ),
-							required : true
+						type : 'text',
+						id : 'transaction',
+						label : lang.transaction,
+						setup : function(data) {
+							this.setValue(data.transaction);
+						},
+						commit : function( data ) {
+							data.transaction = this.getValue().toUpperCase();
+						},
+						validate : function( data ) {
+							var value = this.getValue();
+							var l = value.length;
+							var errors;
+							var validRegex = new RegExp("^"+allowedChars+"+$");
+							if(!validRegex.test(value)) {
+								errors = lang.invalidTransaction;
+							}
+							if(l == 0 ) {
+								errors = lang.emptyTransaction;
+							}
+							return errors;
+						},
+						required : true
 					}
 				]
 			}
