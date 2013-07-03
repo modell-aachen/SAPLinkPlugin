@@ -35,4 +35,6 @@ $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkUserClient} = '001';
 
 # **STRING**
 # Standard-Sprache f&uuml;r sap-shortcuts.
-$Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkLanguage} = 'de';
+# <p>Diese Einstellung <b>muss</b> korrekt sein, ansonsten kann eine laufende
+# Session nicht weiter genutzt werden.</p>
+$Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkLanguage} = 'D';
