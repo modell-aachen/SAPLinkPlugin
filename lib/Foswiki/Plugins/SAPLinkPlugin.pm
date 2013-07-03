@@ -116,7 +116,7 @@ sub restGetLink {
     $value = $query->{param}->{title};
     $value = @$value[0] if $value;
     $value = 'SAP-Link' unless $value;
-    $function .= "\nTitle=$value";
+    $function .= "\nTitle=$value\nType=Transaction";
 
     $value = $query->{param}->{reuse};
     if ($value) {
