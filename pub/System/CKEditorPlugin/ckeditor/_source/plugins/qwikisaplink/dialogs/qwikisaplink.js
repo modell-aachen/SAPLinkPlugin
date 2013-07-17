@@ -32,11 +32,6 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 		var regex = new RegExp("SAP Transaction: ("+allowedChars+"+) ");
 		var html = getReal.getHtml();
 		var match = regex.exec( html );
-		if(!(match && match.length > 1)) {
-			// old format
-			var regex = new RegExp("%SAPLINK{\"("+allowedChars+"+)\"}%");
-			match = regex.exec( html );
-		}
 		if(match && match.length > 1) {
 			data.transaction = match[1];
 		}

@@ -39,8 +39,6 @@ sub initPlugin {
         return 0;
     }
 
-    Foswiki::Func::registerTagHandler( 'SAPLINK', \&_SAPLINK );
-
     Foswiki::Func::registerRESTHandler( 'getlink', \&restGetLink );
 
     # Copy/Paste/Modify from MetaCommentPlugin
@@ -70,16 +68,6 @@ SCRIPT
 
     # Plugin correctly initialized
     return 1;
-}
-
-# for backwards compatibility
-sub _SAPLINK {
-    my($session, $params, $topic, $web, $topicObject) = @_;
-
-    my $transaction = $params->{_DEFAULT};
-    return '' unless $transaction;
-
-    return "<span class='SAPLink'>Transaction: $transaction</span>";
 }
 
 sub restGetLink {
