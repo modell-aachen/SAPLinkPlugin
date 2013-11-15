@@ -1,0 +1,56 @@
+---+!! !SAPLinkPlugin
+<!--
+One line description, required for extensions repository catalog.
+BuildContrib will fill in the SHORTDESCRIPTION with the value of
+$SHORTDESCRIPTION from the .pm module, or you can redefine it here if you
+prefer.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Usage
+In Ultrakurzform.
+---+++ Neue Transaktion anlegen
+Seite bearbeiten und im Editor auf den =SAP= Knopf im QWiki-Menue drücken.
+---+++ Transaktion bearbeiten
+Seite bearbeiten und im Editor mit Doppelklick/Rechtsklick auf ein =SAP= Symbol das Dialogfenster öffnen.
+
+---++ Examples
+
+---++ Installation Instructions
+Ebenso ultrakurz:
+   * Plugin normal über =Configure= installieren
+      * %X% Achtung bei =pseudo-install=:
+         * Wenn der CKEditor ebenfall mit gepseudoinstallt werden soll, m&uuml;ssen einige Ordner im =pub= Verzeichnis (=/pub/%SYSTEMWEB%/CKEditorPlugin/ckeditor/_source/plugins= und ckeditor/plugins=) vorher manuell angelegt werden.
+         * Das Plugin muss entweder mit =build.pl= gebaut werden, oder in den =WebPreferences= / =SitePreferences= die Einstellung =CKEditorPlugin_DEBUG = 1= gesetzt werden.
+   * In =Configure= einstellen:
+      * ={Plugins}{SAPLinkPlugin}{Method} = sap-shortcut= (Die andere Option ist f&uuml;r Netweaver und komplett ungetestet)
+      * ={Plugins}{SAPLinkPlugin}{systemName}=
+      * ={Plugins}{SAPLinkPlugin}{systemDesc}= (_glaube ich_ optional)
+      * ={Plugins}{SAPLinkPlugin}{workingDir}= (_glaube ich_ *nicht optional*, wird als WikiText expandiert, eventuell einen SAP-Link auf dem Desktop anlegen und schauen wie das aussehen muss)
+      * ={Plugins}{SAPLinkPlugin}{UserName}= (wird als WikiText expandiert)
+      * ={Plugins}{SAPLinkPlugin}{systemClient}=
+
+   * Wie in [[%SYSTEMWEB%.CKEditorPlugin]] beschrieben ein =CKEPLUGIN_INIT_TOPIC= anlegen und dort bei =extraPlugins= den Wert =qwikisaplink= hinzuf&uuml;gen.
+
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+Many thanks to the following sponsors for supporting this work:
+   * Acknowledge any sponsors here
+
+|  Author(s): | |
+|  Copyright: | &copy; |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | http://modell-aachen.de/view/Extensions/SAPLinkPlugin |
+|  Support: | http://modell-aachen.de/view/Support/SAPLinkPlugin |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
