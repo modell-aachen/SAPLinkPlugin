@@ -21,9 +21,9 @@ use warnings;
 use Foswiki::Func    ();    # The plugins API
 use Foswiki::Plugins ();    # For the API version
 
-our $VERSION = '$Rev$';
+our $VERSION = '1.1';
 
-our $RELEASE = '0.0.4';
+our $RELEASE = '1.1';
 
 our $SHORTDESCRIPTION = 'Create links to SAP-transactions.';
 
