@@ -13,8 +13,8 @@ sub new {
 }
 
 # Will first symlink _source files to plugins directory and do a standard build
-sub target_compress {
-    my $this = shift;
+sub target_compress_ {
+#    my $this = shift;
 
     # Symlink the source to ..._src.js files and return to current dir
     my $dir = "$this->{basedir}/pub/System/CKEditorPlugin/ckeditor/_source";
@@ -25,7 +25,7 @@ sub target_compress {
     chdir $saveddir;
 
     # do a standard compress
-    $this->SUPER::target_compress(@ARGV);
+#    $this->SUPER::target_compress(@ARGV);
 }
 
 # This function will recursively call itself and link files from _source to
@@ -57,6 +57,7 @@ sub _linkFiles {
     }
 }
 
+target_compress_();
 
 # Create the build object
 $build = new SAPLinkPluginBuild();
