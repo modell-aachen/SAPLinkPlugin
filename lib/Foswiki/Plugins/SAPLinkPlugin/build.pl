@@ -1,6 +1,7 @@
 #!/usr/bin/perl -w
 BEGIN { unshift @INC, split( /:/, $ENV{FOSWIKI_LIBS} ); }
 use Foswiki::Contrib::Build;
+use Cwd;
 
 package SAPLinkPluginBuild;
 our @ISA = qw( Foswiki::Contrib::Build );
@@ -17,9 +18,8 @@ sub target_compress {
 
     # Symlink the source to ..._src.js files and return to current dir
     my $dir = "$this->{basedir}/pub/System/CKEditorPlugin/ckeditor/_source";
-    my $saveddir = `pwd`;
-    $saveddir =~ m#(.*)#; # filter out newline
-    $saveddir = $1;
+    $dir = $FindBin::Bin;
+    my $saveddir = getcwd;
     print "Symlinking _source...\n";
     _linkFiles($dir);
     chdir $saveddir;
