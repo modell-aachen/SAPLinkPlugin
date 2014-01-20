@@ -17,8 +17,9 @@ sub target_compress_ {
 #    my $this = shift;
 
     # Symlink the source to ..._src.js files and return to current dir
-    my $dir = "$this->{basedir}/pub/System/CKEditorPlugin/ckeditor/_source";
-    $dir = $FindBin::Bin;
+#    my $dir = "$this->{basedir}/pub/System/CKEditorPlugin/ckeditor/_source";
+    my $dir = $FindBin::Bin;
+    $dir = "$dir/../../../../pub/System/CKEditorPlugin/ckeditor/_source";
     my $saveddir = getcwd;
     print "Symlinking _source...\n";
     _linkFiles($dir);
