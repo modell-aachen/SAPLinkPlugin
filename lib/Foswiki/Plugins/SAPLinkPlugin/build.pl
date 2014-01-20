@@ -45,11 +45,10 @@ sub _linkFiles {
     }
 }
 
-use Cwd;
-use FindBin;
-my $saveddir = getcwd;
-my $dir = $FindBin::Bin;
-chdir($dir);
+my $dir = `pwd`;
+my $saveddir = $dir;
+$dir =~ m#(.*)#; # filter out newline
+$dir = $1;
 unless ( -e "$dir/build.pl" && $dir =~ m#/lib/Foswiki/Plugins/SAPLinkPlugin$# ) {
     print "\nRunning from '$dir'\nPlease call from SAPLinkPlugin/lib/Foswiki/Plugins/SAPLinkPlugin/\n\n";
     exit 1;
