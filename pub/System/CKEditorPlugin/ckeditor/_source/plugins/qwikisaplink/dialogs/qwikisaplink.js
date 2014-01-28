@@ -6,7 +6,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 {
 	var config = editor.config,
-		lang = editor.lang.qwikisaplink,
+		lang = editor.lang.qwikisaplink || {},
 		transaction;
 
 	function createLink() {
@@ -40,18 +40,18 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 	};
 
 	return {
-		title : lang.title,
+		title : lang.title || 'Dialog',
 		minWidth : 270,
 		minHeight : 120,
 		contents : [
 			{
 				id : 'sapshortcut',
-				label : lang.shortcut,
+				label : lang.shortcut || 'Shortcut',
 				elements: [
 					{
 						type : 'text',
 						id : 'transaction',
-						label : lang.transaction,
+						label : lang.transaction || 'transaction',
 						setup : function(data) {
 							this.setValue(data.transaction);
 						},
@@ -64,10 +64,10 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 							var errors;
 							var validRegex = new RegExp("^"+allowedChars+"+$");
 							if(!validRegex.test(value)) {
-								errors = lang.invalidTransaction;
+								errors = lang.invalidTransaction || 'invalid';
 							}
 							if(l == 0 ) {
-								errors = lang.emptyTransaction;
+								errors = lang.emptyTransaction || 'empty';
 							}
 							return errors;
 						},

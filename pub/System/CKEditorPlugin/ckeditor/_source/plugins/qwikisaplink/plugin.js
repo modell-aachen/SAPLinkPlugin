@@ -13,7 +13,7 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 		editor.addCommand( 'qwikisaplink', new CKEDITOR.dialogCommand( 'qwikisaplink' ) );
 		editor.ui.addButton( 'QWikiSAPLink',
 			{
-				label : editor.lang.qwikisaplink.toolbar,
+				label : editor.lang.qwikisaplink.toolbar || 'SAPLink',
 				command : 'qwikisaplink',
 				icon : this.path + 'images/sap-sprite_sap_klein.png'
 			});
@@ -36,7 +36,7 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 			editor.addMenuItem(
 					'qwikisaplink',
 					{
-						label : editor.lang.qwikisaplink.contextmenu,
+						label : editor.lang.qwikisaplink.contextmenu || 'SAPLink Menue',
 						icon : this.path + "images/sap-sprite_sap_klein.png",
 						command : 'qwikisaplink',
 						group : 'group_saplink',
