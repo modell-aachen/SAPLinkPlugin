@@ -9,8 +9,12 @@ jQuery(function($) {
         var transactionReg = new RegExp("SAP Transaction: ([a-zA-Z0-9_]+) ");
         var match = transactionReg.exec( $this.text() );
         if(match) {
-            var img = '<div class="SAPLinkSymbol" title="'+SAPLink.txt_tra+match[1]+'"></div>';
             var transaction = match[1];
+            var display = '';
+            if(SAPLink.display === 'transaction') {
+                display = ' ' + transaction;
+            }
+            var img = '<div class="SAPLinkSymbol" title="'+SAPLink.txt_tra+transaction+'">'+display+'</div>';
             if(SAPLink.type == 'web') {
                 var $a = $('<a href="'+SAPLink.nwurl + '?~TRANSACTION='+transaction+'">'+img+'</a>');
                 $this.replaceWith($a);

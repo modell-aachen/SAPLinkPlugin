@@ -49,7 +49,8 @@ sub initPlugin {
       );
     }
 
-    my $options = 'txt_tra:"%MAKETEXT{"Transaction: "}%"';
+    my $options = 'txt_tra:"%MAKETEXT{"Transaction: "}%"'
+        .',display:"'.($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkDisplay} || 'symbol').'"';
     if($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} eq 'web') {
         my $server = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkServer} || return 0;
         my $path = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkPath} || return 0;
