@@ -148,9 +148,15 @@ sub restGetLink {
 
 sub _getConfig {
     my ($config, $param) = @_;
-    return $param->{$config}[0] if $param->{$config};
-    return Foswiki::Func::getPreferencesValue( $config )
-        || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{$config};
+
+    my $value;
+    if ($param->{$config}) {
+        $value = $param->{$config}[0];
+    } else {
+        $value = Foswiki::Func::getPreferencesValue( $config )
+            || $Foswiki::cfg{Plugins}{SAPLinkPlugin}{$config};
+    }
+    return Foswiki::Func::expandCommonVariables($value);
 }
 
 sub indexTopicHandler {
