@@ -9,18 +9,8 @@ pub/System/SAPLinkPlugin/saplink.js 0644
 pub/System/SAPLinkPlugin/saplink.js.gz 0644
 locale/SAPLinkPlugin/de.po 0644 translation de
 pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/plugin.js 0644
-pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/plugin.js.gz 0644
 pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/lang/de.js 0644
-pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/lang/de.js.gz 0644
 pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/lang/en.js 0644
-pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/lang/en.js.gz 0644
 pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/images/sap-sprite_sap_klein.png 0644
 pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/images/sap-sprite_sap_20.png 0644
 pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/dialogs/qwikisaplink.js 0644
-pub/System/CKEditorPlugin/ckeditor/plugins/qwikisaplink/dialogs/qwikisaplink.js.gz 0644
-pub/System/CKEditorPlugin/ckeditor/_source/plugins/qwikisaplink/plugin.js 0644
-pub/System/CKEditorPlugin/ckeditor/_source/plugins/qwikisaplink/lang/de.js 0644
-pub/System/CKEditorPlugin/ckeditor/_source/plugins/qwikisaplink/lang/en.js 0644
-pub/System/CKEditorPlugin/ckeditor/_source/plugins/qwikisaplink/images/sap-sprite_sap_klein.png 0644
-pub/System/CKEditorPlugin/ckeditor/_source/plugins/qwikisaplink/images/sap-sprite_sap_20.png 0644
-pub/System/CKEditorPlugin/ckeditor/_source/plugins/qwikisaplink/dialogs/qwikisaplink.js 0644

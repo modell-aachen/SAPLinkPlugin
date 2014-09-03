@@ -58,7 +58,7 @@ sub _linkFiles {
     }
 }
 
-target_compress_();
+# target_compress_();
 
 # Create the build object
 $build = new SAPLinkPluginBuild();

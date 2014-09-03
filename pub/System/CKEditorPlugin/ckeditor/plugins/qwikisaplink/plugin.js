@@ -18,7 +18,7 @@ CKEDITOR.plugins.add( 'qwikisaplink',
 				icon : this.path + 'images/sap-sprite_sap_klein.png'
 			});
 		CKEDITOR.dialog.add( 'qwikisaplink', this.path + 'dialogs/qwikisaplink.js' );
-		editor.addCss(
+		CKEDITOR.addCss(
 			'img.cke_saplink' +
 			'{' +
 				'background-image: url(' + CKEDITOR.getUrl( this.path + 'images/sap-sprite_sap_20.png' ) + ');' +

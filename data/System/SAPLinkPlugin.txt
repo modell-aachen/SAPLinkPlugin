@@ -33,38 +33,42 @@ Ebenso ultrakurz:
       * ={Plugins}{SAPLinkPlugin}{SAPLinkUserName}= (wird als WikiText expandiert)
       * ={Plugins}{SAPLinkPlugin}{SAPLinkSystemClient}=
 
-   * Wie in [[%SYSTEMWEB%.CKEditorPlugin]] beschrieben ein =CKEPLUGIN_INIT_TOPIC= anlegen und dort bei =extraPlugins= den Wert =qwikisaplink= hinzuf&uuml;gen und in =toolbar_Basic= zu den =items= von ='qwiki'= den Wert ='QWikiSAPLink'= in die Liste mit aufnehmen (siehe Beispiel unten).
+   * Wie in [[%SYSTEMWEB%.CKEditorPlugin]] beschrieben eine Konfiguration anlegen und dort bei =extraPlugins= den Wert =qwikisaplink= hinzuf&uuml;gen und in =toolbar_MA= zu den =items= vim Q.Wiki den Wert ='QWikiSAPLink'= in die Liste mit aufnehmen (siehe Beispiel unten).
 
 %TWISTY{showimgleft="%ICONURLPATH{"toggleopen"}%" hideimgleft="%ICONURLPATH{"toggleclose"}%" link="Beispiel &Auml;nderungen an CKEPLUGIN_INIT" start="hide"}%<div style="border-left: 5px solid green; padding-left: 15px; margin-left: 5px;">
-Aus <pre>
-%%NOP%STARTSECTION{"CKEPLUGIN_INIT"}%
-extraPlugins : "qwikistyles,qwikiprovisarea,qwiki,qwikiajax,qwikifilebrowser,qwikiimage,qwikiautosuggest,qwikilink,qwikisave,qwikitoolbar,qwikiwikitext,qwikitable,tableresize,ajax,xml",
-removePlugins : "toolbar,save,link,image,table,forms",
-enterMode : "1",
-menu_groups : "clipboard,form,tablecell,tablecellproperties,tablerow,tablecolumn,table,anchor,link,image,flash,checkbox,radio,textfield,hiddenfield,imagebutton,button,select,textarea,provis,code,removeformat",
-toolbar: "Basic",
-toolbar_Basic : [
-     { name: 'save',        items : [ 'Save', 'Cancel' ] },
-     { name: 'wikitext',    items : [ 'WikiText' ] },
-     { name: 'undoredo',    items : [ 'Undo','Redo' ] },
-     { name: 'links',       items : [ 'Link','Unlink' ] },
-     { name: 'qwiki',       items : [ 'ProVis','Document','QWikiImage','Table' ] },
-...
-</pre>
-w&uuml;rde <pre>
-%%NOP%STARTSECTION{"CKEPLUGIN_INIT"}%
-extraPlugins : "qwikistyles,qwikiprovisarea,qwiki,<span style="background-color: yellow">qwikisaplink</span>,qwikiajax,qwikifilebrowser,qwikiimage,qwikiautosuggest,qwikilink,qwikisave,qwikitoolbar,qwikiwikitext,qwikitable,tableresize,ajax,xml",
-removePlugins : "toolbar,save,link,image,table,forms",
-enterMode : "1",
-menu_groups : "clipboard,form,tablecell,tablecellproperties,tablerow,tablecolumn,table,anchor,link,image,flash,checkbox,radio,textfield,hiddenfield,imagebutton,button,select,textarea,provis,code,removeformat",
-toolbar: "Basic",
-toolbar_Basic : [
-     { name: 'save',        items : [ 'Save', 'Cancel' ] },
-     { name: 'wikitext',    items : [ 'WikiText' ] },
-     { name: 'undoredo',    items : [ 'Undo','Redo' ] },
-     { name: 'links',       items : [ 'Link','Unlink' ] },
-     { name: 'qwiki',       items : [ 'ProVis','Document','QWikiImage','Table'<span style="background-color: yellow">,'QWikiSAPLink'</span> ] },
-...
+<pre>
+%%NOP%STARTSECTION{"CKE_CONFIG_MAIN"}%
+
+uiColor: '#f0f0f0',
+skin: 'moono',
+toolbar: 'MA',
+height: 500,
+allowedContent: true,
+resize_enabled: true,
+toolbarCanCollapse: false,
+enterMode: CKEDITOR.ENTER_P,
+shiftEnterMode: CKEDITOR.ENTER_BR,
+extraPlugins: 'divarea,qwikisave,qwikiautosuggest,qwikifilebrowser,qwiki,qwikitabletools,qwikitable,qwikiprovis,qwikitoolbar<span style="background-color: yellow">,qwikisaplink</span>',
+removePlugins: 'autosave,wordcount,floating-tools,filebrowser,tabletools,table',
+autosave_delay: 10,
+forcePasteAsPlainText: true,
+filebrowserUploadUrl: '/bin/rest/WysiwygPlugin/upload?noredirect',
+linkShowAdvancedTab: false,
+linkShowTargetTab: false,
+
+contentsCss: [ '/pub/System/CKEditorPlugin/styles/cke_qwiki.css'],
+
+toolbar_MA: [
+    { name: '', items: [ 'ma-save', 'ma-cancel' ] },
+    { name: '', items: [ 'Source' ] },
+    { name: '', items: [ 'Undo', 'Redo' ] },
+    { name: '', items: [ 'Link','Unlink' ] },
+    { name: '', items: [ 'QwikiProvis', 'QwikiAttach', 'Image', 'QwikiTable', 'Code', 'Document'<span style="background-color: yellow">, 'QWikiSAPLink'</span> ] },
+    { name: '', items: [ 'RemoveFormat', 'ShowBlocks', 'Maximize' ] },
+    '/',
+.
+.
+.
 </pre>
 </div>
 %ENDTWISTY%
