@@ -17,5 +17,5 @@ CKEDITOR.plugins.setLang( 'qwikisaplink', 'en',
 	transaction: 'Transaction',
 	shortcut: 'SAP-Shortcut',
 	emptyTransaction: 'Please enter transaction.',
-	invalidTransaction: 'The transaction may only consist of letters (a-z), numbers (0-9) and underscores (_).'
+	invalidTransaction: 'The transaction contains invalid characters: '
 });

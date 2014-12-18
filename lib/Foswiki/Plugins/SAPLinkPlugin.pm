@@ -61,9 +61,16 @@ sub initPlugin {
     } else {
         $options .= ",type:'unknown'";
     }
+    if($Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkRegexp}) {
+        my $regexp = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkRegexp};
+        $regexp =~ s#\\#\\#g; # use JSON?
+        $regexp =~ s#'#\\'#g; # use JSON?
+        $options .= ",regexp:'$regexp'";
+    }
     if(defined $Foswiki::cfg{Plugins}{SAPLinkPlugin}{UpperCase}) {
         $options .= ",UpperCase:" . (($Foswiki::cfg{Plugins}{SAPLinkPlugin}{UpperCase})?'1':'0');
     }
+    $options = Encode::encode($Foswiki::cfg{Site}{CharSet}, $options);
 Foswiki::Func::addToZone('script', 'SAPLinkPlugin', <<SCRIPT, 'JQUERYPLUGIN::FOSWIKI');
 <style type="text/css">\@import url('%PUBURLPATH%/%SYSTEMWEB%/SAPLinkPlugin/saplink.css');</style>
 <script type="text/javascript" src="%PUBURLPATH%/%SYSTEMWEB%/SAPLinkPlugin/saplink.js"></script>
@@ -165,7 +172,8 @@ sub _getConfig {
 sub indexTopicHandler {
     my ($indexer, $doc, $web, $topic, $meta, $text) = @_;
 
-    while ( $text =~ m#SAP Transaction: ([a-zA-Z0-9]+) #g ) {
+    my $reg = $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkRegexp} || '[a-zA-Z0-9_]+';
+    while ( $text =~ m#SAP Transaction: ($reg) #go ) {
         $doc->add_fields( sap_transaction_lst => $1 );
     }
 }

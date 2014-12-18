@@ -23,13 +23,14 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 		return true;
 	}
 
-	var allowedChars = '[a-zA-Z0-9_]';
+	var allowedChars = '[a-zA-Z0-9_]+';
+	if(document.SAPLink && document.SAPLink.regexp) allowedChars = document.SAPLink.regexp;
 	var onShow = function() {
 		var data = {};
 		element = editor.getSelection().getSelectedElement();
 		data.transaction = "";
 		var getReal = editor.restoreRealElement(element);
-		var regex = new RegExp("SAP Transaction: ("+allowedChars+"+) ");
+		var regex = new RegExp("^SAP Transaction: ("+allowedChars+") $");
 		var html = getReal.getHtml();
 		var match = regex.exec( html );
 		if(match && match.length > 1) {
@@ -65,9 +66,11 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 							var value = this.getValue();
 							var l = value.length;
 							var errors;
-							var validRegex = new RegExp("^"+allowedChars+"+$");
-							if(!validRegex.test(value)) {
-								errors = lang.invalidTransaction || 'invalid';
+							var validRegex = new RegExp(allowedChars, 'g');
+							var invalid = value.replace(validRegex, '');
+							if(invalid.length) {
+								errors = lang.invalidTransaction || "Invalid characters: ";
+								errors += "'" + jQuery.unique(invalid.split('').sort()).join('') + "'";
 							}
 							if(l == 0 ) {
 								errors = lang.emptyTransaction || 'empty';

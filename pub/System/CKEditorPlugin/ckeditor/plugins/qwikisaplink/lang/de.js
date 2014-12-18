@@ -17,5 +17,5 @@ CKEDITOR.plugins.setLang( 'qwikisaplink', 'de',
 	transaction: 'Transaktion',
 	shortcut: 'SAP-Shortcut',
 	emptyTransaction: 'Bitte Transaktionsnummer angeben.',
-	invalidTransaction: 'Die Transaktionsnummer darf nur aus Buchstaben (A-Z), Ziffern (0-9) und Unterstrichen (_) bestehen.'
+	invalidTransaction: 'Die Transaktionsnummer enth\u00E4lt ung\u00FCltige Zeichen: '
 });

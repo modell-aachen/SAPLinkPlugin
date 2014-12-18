@@ -5,6 +5,11 @@
 # If this option is set, entered transactions will be uppercased.
 $Foswiki::cfg{Plugins}{SAPLinkPlugin}{UpperCase} = 1;
 
+# **STRING**
+# Regex for allowed SAPLinks; defaults to letters + numbers + underscore.
+# <p>Make sure this is compatible with perl and javascript. Test well!</p>
+$Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkRegexp} = '';
+
 # **SELECT sap-shortcut, web**
 # Method to be used
 $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} = 'sap-shortcut';

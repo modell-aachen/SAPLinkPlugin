@@ -6,7 +6,8 @@ jQuery(function($) {
             if(console && console.log) console.log('No SAPLink object!');
             return;
         }
-        var transactionReg = new RegExp("SAP Transaction: ([a-zA-Z0-9_]+) ");
+        var allowed = SAPLink.regexp || '[a-zA-Z0-9_]+'; // XXX perl regex might not be JavaScript compatible
+        var transactionReg = new RegExp("^SAP Transaction: (" + allowed + ") $");
         var match = transactionReg.exec( $this.text() );
         if(match) {
             var transaction = match[1];
