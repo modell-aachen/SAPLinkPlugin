@@ -1,6 +1,10 @@
 # ---+ Extensions
 # ---++ SAPLinkPlugin
 
+# **BOOLEAN**
+# If this option is set, entered transactions will be uppercased.
+$Foswiki::cfg{Plugins}{SAPLinkPlugin}{UpperCase} = 1;
+
 # **SELECT sap-shortcut, web**
 # Method to be used
 $Foswiki::cfg{Plugins}{SAPLinkPlugin}{SAPLinkMethod} = 'sap-shortcut';

@@ -56,7 +56,10 @@ CKEDITOR.dialog.add( 'qwikisaplink', function( editor )
 							this.setValue(data.transaction);
 						},
 						commit : function( data ) {
-							data.transaction = this.getValue().toUpperCase();
+							data.transaction = this.getValue();
+							if(!document.SAPLink || typeof(document.SAPLink.UpperCase) === 'undefined' || document.SAPLink.UpperCase ) {
+								data.transaction = data.transaction.toUpperCase();
+							}
 						},
 						validate : function( data ) {
 							var value = this.getValue();

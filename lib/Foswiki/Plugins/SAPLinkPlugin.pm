@@ -61,6 +61,9 @@ sub initPlugin {
     } else {
         $options .= ",type:'unknown'";
     }
+    if(defined $Foswiki::cfg{Plugins}{SAPLinkPlugin}{UpperCase}) {
+        $options .= ",UpperCase:" . (($Foswiki::cfg{Plugins}{SAPLinkPlugin}{UpperCase})?'1':'0');
+    }
 Foswiki::Func::addToZone('script', 'SAPLinkPlugin', <<SCRIPT, 'JQUERYPLUGIN::FOSWIKI');
 <style type="text/css">\@import url('%PUBURLPATH%/%SYSTEMWEB%/SAPLinkPlugin/saplink.css');</style>
 <script type="text/javascript" src="%PUBURLPATH%/%SYSTEMWEB%/SAPLinkPlugin/saplink.js"></script>
