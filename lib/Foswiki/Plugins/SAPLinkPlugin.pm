@@ -39,7 +39,7 @@ sub initPlugin {
         return 0;
     }
 
-    Foswiki::Func::registerRESTHandler( 'getlink', \&restGetLink, authenticate => 0, validat => 0, http_allow => 'GET' );
+    Foswiki::Func::registerRESTHandler( 'getlink', \&restGetLink, authenticate => 0, validate => 0, http_allow => 'GET' );
 
     # Copy/Paste/Modify from MetaCommentPlugin
     if ($Foswiki::cfg{Plugins}{SolrPlugin}{Enabled}) {
